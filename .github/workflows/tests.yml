@@ -15,17 +15,19 @@ jobs:
       fail-fast: false
       matrix:
         php-version: [ '8.3', '8.4' ]
+        image-extensions: ['','gd','imagick']
 
-    name: Tests on PHP ${{ matrix.php-version }}
-
+    name: Tests on PHP ${{ matrix.php-version }} with extension ${{ matrix.image-extensions }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
+        # TODO : y a p-ê un truc à modifier ici pour activer GD ?
         with:
           php-version: ${{ matrix.php-version }}
+          extensions: ${{ matrix.image-extensions }}
           coverage: none
 
       - name: Validate composer.json and composer.lock
@@ -43,6 +45,15 @@ jobs:
       - name: Install dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer i --prefer-dist --no-progress
+
+      - name: Run test suite
+        run: vendor/bin/phpunit
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
 
       - name: Run test suite
         run: vendor/bin/phpunit

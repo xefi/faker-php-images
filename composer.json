@@ -1,7 +1,7 @@
 {
   "name": "xefi/faker-php-images",
   "type": "library",
-  "description": "Faker extension to generate files",
+  "description": "Faker extension to generate images",
   "keywords": [
     "faker",
     "file",
@@ -11,10 +11,14 @@
   "authors": [
     {
       "name": "Gautier Deleglise"
+    },
+    {
+      "name": "Martin Soenen"
     }
   ],
   "require": {
     "php": "^8.3",
+    "intervention/image": "^3.9",
     "psr/container": "^2.0",
     "xefi/faker-php": "^0"
   },
@@ -37,7 +41,7 @@
   "extra": {
     "faker": {
       "providers": [
-        "Xefi\\Faker\\Files\\FakerFilesServiceProvider"
+        "FakerImagesServiceProvider"
       ]
     }
   }
