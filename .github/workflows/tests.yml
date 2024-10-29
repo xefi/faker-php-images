@@ -2,7 +2,7 @@ name: tests
 
 on:
   push:
-    branches: '*'
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -44,15 +44,6 @@ jobs:
       - name: Install dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer i --prefer-dist --no-progress
-
-      - name: Run test suite
-        run: vendor/bin/phpunit
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-version }}
-          coverage: none
 
       - name: Run test suite
         run: vendor/bin/phpunit
