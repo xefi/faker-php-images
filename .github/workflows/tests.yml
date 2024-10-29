@@ -2,7 +2,7 @@ name: tests
 
 on:
   push:
-    branches: [ main ]
+    branches: '*'
   pull_request:
     branches: [ main ]
 
@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         php-version: [ '8.3', '8.4' ]
-        image-extensions: ['','gd','imagick']
+        image-extensions: [ '','gd','imagick' ]
 
     name: Tests on PHP ${{ matrix.php-version }} with extension ${{ matrix.image-extensions }}
     steps:
@@ -24,7 +24,6 @@ jobs:
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
-        # TODO : y a p-ê un truc à modifier ici pour activer GD ?
         with:
           php-version: ${{ matrix.php-version }}
           extensions: ${{ matrix.image-extensions }}
