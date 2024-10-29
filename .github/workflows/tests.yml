@@ -17,7 +17,7 @@ jobs:
         php-version: [ '8.3', '8.4' ]
         image-extensions: [ '','gd','imagick' ]
 
-    name: Tests on PHP ${{ matrix.php-version }} with extension ${{ matrix.image-extensions }}
+    name: Tests on PHP ${{ matrix.php-version }} ${{ matrix.image-extensions != '' && format('with extension {0}', matrix.image-extensions) || 'without extensions' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
