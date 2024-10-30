@@ -1,18 +1,19 @@
 <?php
 
-namespace Xefi\Faker\Files\Extensions;
+namespace Xefi\Faker\Images\Extensions;
 
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use Intervention\Image\Drivers\Imagick\Driver as ImagickDriver;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 use Random\Randomizer;
-use Xefi\Faker\Exceptions\NoDriverException;
+use Xefi\Faker\Images\Exceptions\NoDriverException;
 use Xefi\Faker\Extensions\Extension;
 
 class ImagesExtension extends Extension
 {
     private ImageManager $imageManager;
+
     public function __construct(Randomizer $randomizer) {
         $this->imageManager = new ImageManager($this->selectDriver());
 

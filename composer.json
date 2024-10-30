@@ -27,12 +27,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Xefi\\Faker\\Files\\": "src/"
+      "Xefi\\Faker\\Images\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Xefi\\Faker\\Files\\Tests\\": "tests/"
+      "Xefi\\Faker\\Images\\Tests\\": "tests/"
     }
   },
   "config": {
@@ -41,7 +41,7 @@
   "extra": {
     "faker": {
       "providers": [
-        "FakerImagesServiceProvider"
+        "Xefi\\Faker\\Images\\FakerImagesServiceProvider"
       ]
     }
   }

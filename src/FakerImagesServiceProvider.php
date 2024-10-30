@@ -1,7 +1,7 @@
 <?php
-namespace Xefi\Faker\Files;
+namespace Xefi\Faker\Images;
 
-use Xefi\Faker\Files\Extensions\ImagesExtension;
+use Xefi\Faker\Images\Extensions\ImagesExtension;
 use Xefi\Faker\Providers\Provider;
 
 class FakerImagesServiceProvider extends Provider

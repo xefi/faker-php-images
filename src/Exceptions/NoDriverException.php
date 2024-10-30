@@ -1,6 +1,8 @@
 <?php
 
-namespace Xefi\Faker\Exceptions;
+namespace Xefi\Faker\Images\Exceptions;
+
+use Throwable;
 
 class NoDriverException extends \RuntimeException
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Xefi\Faker\Files\Tests\Unit\Extensions;
+namespace Xefi\Faker\Images\Tests\Unit\Extensions;
 
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use Intervention\Image\Drivers\Imagick\Driver as ImagickDriver;
@@ -9,9 +9,9 @@ use Random\Randomizer;
 use ReflectionClass;
 use ReflectionMethod;
 use Xefi\Faker\Container\Container;
-use Xefi\Faker\Exceptions\NoDriverException;
-use Xefi\Faker\Files\Extensions\ImagesExtension;
-use Xefi\Faker\Files\Tests\Unit\TestCase;
+use Xefi\Faker\Images\Exceptions\NoDriverException;
+use Xefi\Faker\Images\Extensions\ImagesExtension;
+use Xefi\Faker\Images\Tests\Unit\TestCase;
 
 final class ImagesExtensionTest extends TestCase
 {
@@ -21,7 +21,8 @@ final class ImagesExtensionTest extends TestCase
         return $class->getMethod($methodName);
     }
 
-    public function testSelectDriver() {
+    public function testSelectDriver(): void
+    {
         if (!extension_loaded('gd') && !extension_loaded('imagick')) {
             $this->expectException(NoDriverException::class);
         }
@@ -40,11 +41,17 @@ final class ImagesExtensionTest extends TestCase
     {
         $faker = new Container(false);
 
+        if (!extension_loaded('gd') && !extension_loaded('imagick')) {
+            $this->expectException(NoDriverException::class);
+        }
+
         $image = $faker->unique()->image();
 
-        $this->assertInstanceOf(Image::class, $image);
-        $this->assertEquals(300, $image->width());
-        $this->assertEquals(200, $image->height());
+        if (extension_loaded('gd') || extension_loaded('imagick')) {
+            $this->assertInstanceOf(Image::class, $image);
+            $this->assertEquals(300, $image->width());
+            $this->assertEquals(200, $image->height());
+        }
     }
 
     public function testImageWithCustomParameters(): void
@@ -56,11 +63,17 @@ final class ImagesExtensionTest extends TestCase
             $width = $randomizer->getInt(1, 2000);
             $height = $randomizer->getInt(1, 2000);
 
+            if (!extension_loaded('gd') && !extension_loaded('imagick')) {
+                $this->expectException(NoDriverException::class);
+            }
+
             $image = $faker->unique()->image($width, $height);
 
-            $this->assertInstanceOf(Image::class, $image);
-            $this->assertEquals($width, $image->width());
-            $this->assertEquals($height, $image->height());
+            if (extension_loaded('gd') || extension_loaded('imagick')) {
+                $this->assertInstanceOf(Image::class, $image);
+                $this->assertEquals($width, $image->width());
+                $this->assertEquals($height, $image->height());
+            }
         }
     }
 

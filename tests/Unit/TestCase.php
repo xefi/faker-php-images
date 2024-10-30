@@ -1,9 +1,9 @@
 <?php
 
-namespace Xefi\Faker\Files\Tests\Unit;
+namespace Xefi\Faker\Images\Tests\Unit;
 
 use Xefi\Faker\Container\Container;
-use Xefi\Faker\Files\FakerImagesServiceProvider;
+use Xefi\Faker\Images\FakerImagesServiceProvider;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {
