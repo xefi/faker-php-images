@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         php-version: [ '8.3', '8.4' ]
-        image-extensions: [ 'none,mbstring','gd','imagick' ]
+        image-extensions: [ 'none,mbstring,dom,tokenizer,xml,xmlwriter,ctype','gd','imagick' ]
 
     name: Tests on PHP ${{ matrix.php-version }} ${{ matrix.image-extensions != 'none' && format('with extension {0}', matrix.image-extensions) || 'without extensions' }}
     steps:
@@ -34,6 +34,9 @@ jobs:
 
       - name: Ensure autoload is new
         run: composer dump-autoload
+
+      - name: Ensure PHPunit has no cache
+        run: rm .phpunit.result.cache
 
       - name: Cache Composer packages
         id: composer-cache
