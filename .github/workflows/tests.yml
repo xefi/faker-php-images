@@ -15,9 +15,12 @@ jobs:
       fail-fast: false
       matrix:
         php-version: [ '8.3', '8.4' ]
-        image-extensions: [ 'none,mbstring,dom,tokenizer,xml,xmlwriter,ctype','gd','imagick' ]
+        image-extensions:
+          - 'none,mbstring,dom,tokenizer,xml,xmlwriter,ctype'
+          - 'none,mbstring,dom,tokenizer,xml,xmlwriter,ctype,gd'
+          - 'none,mbstring,dom,tokenizer,xml,xmlwriter,ctype,imagick'
 
-    name: Tests on PHP ${{ matrix.php-version }} ${{ matrix.image-extensions != 'none' && format('with extension {0}', matrix.image-extensions) || 'without extensions' }}
+    name: Tests on PHP ${{ matrix.php-version }} with extensions ${{ matrix.image-extensions}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
