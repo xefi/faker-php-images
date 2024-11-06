@@ -41,7 +41,7 @@ class ImagesExtension extends Extension
         return round($size);
     }
 
-    public function image($width = 300, $height = 200, $backgroundColor = '#cccccc', $textColor = '#333333'): Image
+    public function image(int $width = 300, int $height = 200, string $backgroundColor = '#cccccc', string $textColor = '#333333'): Image
     {
         $imageManager = $this->imageManagerProvider->getImageManager();
 

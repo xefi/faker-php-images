@@ -14,7 +14,7 @@ class ImageManagerProvider
     public function getImageManager(): ImageManager
     {
         if ($this->imageManager === null) {
-            $this->imageManager = new ImageManager($this->selectDriver());
+            $this->imageManager = new ImageManager(self::selectDriver());
         }
 
         return $this->imageManager;
@@ -25,7 +25,7 @@ class ImageManagerProvider
      *
      * @return GdDriver|ImagickDriver
      */
-    private function selectDriver(): GdDriver|ImagickDriver
+    static private function selectDriver(): GdDriver|ImagickDriver
     {
         if (extension_loaded('gd')) {
             return new GdDriver();
