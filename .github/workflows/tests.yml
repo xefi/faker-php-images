@@ -2,7 +2,7 @@ name: tests
 
 on:
   push:
-    branches: '*'
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -34,9 +34,6 @@ jobs:
 
       - name: Validate composer.json and composer.lock
         run: composer validate
-
-      - name: Ensure autoload is new
-        run: composer dump-autoload
 
       - name: Cache Composer packages
         id: composer-cache
