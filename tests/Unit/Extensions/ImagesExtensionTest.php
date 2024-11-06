@@ -2,41 +2,14 @@
 
 namespace Xefi\Faker\Images\Tests\Unit\Extensions;
 
-use Intervention\Image\Drivers\Gd\Driver as GdDriver;
-use Intervention\Image\Drivers\Imagick\Driver as ImagickDriver;
 use Intervention\Image\Image;
 use Random\Randomizer;
-use ReflectionClass;
-use ReflectionMethod;
 use Xefi\Faker\Container\Container;
 use Xefi\Faker\Images\Exceptions\NoDriverException;
-use Xefi\Faker\Images\Extensions\ImagesExtension;
 use Xefi\Faker\Images\Tests\Unit\TestCase;
 
 final class ImagesExtensionTest extends TestCase
 {
-    protected static function getMethod(string $methodName): ReflectionMethod
-    {
-        $class = new ReflectionClass(ImagesExtension::class);
-        return $class->getMethod($methodName);
-    }
-
-    public function testSelectDriver(): void
-    {
-        if (!extension_loaded('gd') && !extension_loaded('imagick')) {
-            $this->expectException(NoDriverException::class);
-        }
-
-        $method = self::getMethod('selectDriver');
-        $driver = $method->invokeArgs(new ImagesExtension(new Randomizer()), []);
-
-        if (extension_loaded('gd')) {
-            $this->assertInstanceOf(GdDriver::class, $driver);
-        } elseif (extension_loaded('imagick')) {
-            $this->assertInstanceOf(ImagickDriver::class, $driver);
-        }
-    }
-
     public function testImage(): void
     {
         $faker = new Container(false);

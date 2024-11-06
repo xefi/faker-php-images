@@ -2,40 +2,19 @@
 
 namespace Xefi\Faker\Images\Extensions;
 
-use Intervention\Image\Drivers\Gd\Driver as GdDriver;
-use Intervention\Image\Drivers\Imagick\Driver as ImagickDriver;
 use Intervention\Image\Image;
-use Intervention\Image\ImageManager;
 use Random\Randomizer;
-use Xefi\Faker\Images\Exceptions\NoDriverException;
 use Xefi\Faker\Extensions\Extension;
+use Xefi\Faker\Images\Providers\ImageManagerProvider;
 
 class ImagesExtension extends Extension
 {
-    private ImageManager $imageManager;
+    private ImageManagerProvider $imageManagerProvider;
 
-    public function __construct(Randomizer $randomizer) {
-        $this->imageManager = new ImageManager($this->selectDriver());
+    public function __construct(Randomizer $randomizer){
+        $this->imageManagerProvider = new ImageManagerProvider();
 
         parent::__construct($randomizer);
-    }
-
-    /**
-     * Ensure a driver is available, and select the right driver for Imagick
-     *
-     * @return GdDriver|ImagickDriver
-     */
-    private function selectDriver(): GdDriver|ImagickDriver
-    {
-        if (extension_loaded('gd')) {
-            return new GdDriver();
-        }
-
-        if (extension_loaded('imagick')) {
-            return new ImagickDriver();
-        }
-
-        throw new NoDriverException("Please activate GD or Imagick in your PHP extensions.");
     }
 
     /**
@@ -64,7 +43,9 @@ class ImagesExtension extends Extension
 
     public function image($width = 300, $height = 200, $backgroundColor = '#cccccc', $textColor = '#333333'): Image
     {
-        $image = $this->imageManager->create($width,$height);
+        $imageManager = $this->imageManagerProvider->getImageManager();
+
+        $image = $imageManager->create($width,$height);
         $image->fill($backgroundColor);
 
         $image->text($width.' x '.$height, round($width / 2), round($height / 2), function($font) use ($textColor, $width, $height) {
