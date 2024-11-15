@@ -7,7 +7,7 @@ use Intervention\Image\Drivers\Imagick\Driver as ImagickDriver;
 use Intervention\Image\ImageManager;
 use ReflectionClass;
 use ReflectionMethod;
-use Xefi\Faker\Images\Exceptions\NoDriverException;
+use Xefi\Faker\Images\Exceptions\NoImageDriverException;
 use Xefi\Faker\Images\Providers\ImageManagerProvider;
 use Xefi\Faker\Images\Tests\Unit\TestCase;
 
@@ -23,7 +23,7 @@ final class ImageManagerProviderTest extends TestCase
     public function testSelectDriver(): void
     {
         if (!extension_loaded('gd') && !extension_loaded('imagick')) {
-            $this->expectException(NoDriverException::class);
+            $this->expectException(NoImageDriverException::class);
         }
 
         $method = self::getMethod('selectDriver');
@@ -38,7 +38,7 @@ final class ImageManagerProviderTest extends TestCase
 
     public function testGetImageManager() {
         if (!extension_loaded('gd') && !extension_loaded('imagick')) {
-            $this->expectException(NoDriverException::class);
+            $this->expectException(NoImageDriverException::class);
         }
 
         $provider = new ImageManagerProvider();

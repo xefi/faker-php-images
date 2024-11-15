@@ -5,7 +5,7 @@ namespace Xefi\Faker\Images\Tests\Unit\Extensions;
 use Intervention\Image\Image;
 use Random\Randomizer;
 use Xefi\Faker\Container\Container;
-use Xefi\Faker\Images\Exceptions\NoDriverException;
+use Xefi\Faker\Images\Exceptions\NoImageDriverException;
 use Xefi\Faker\Images\Tests\Unit\TestCase;
 
 final class ImagesExtensionTest extends TestCase
@@ -15,7 +15,7 @@ final class ImagesExtensionTest extends TestCase
         $faker = new Container(false);
 
         if (!extension_loaded('gd') && !extension_loaded('imagick')) {
-            $this->expectException(NoDriverException::class);
+            $this->expectException(NoImageDriverException::class);
         }
 
         $image = $faker->unique()->image();
@@ -37,7 +37,7 @@ final class ImagesExtensionTest extends TestCase
             $height = $randomizer->getInt(1, 2000);
 
             if (!extension_loaded('gd') && !extension_loaded('imagick')) {
-                $this->expectException(NoDriverException::class);
+                $this->expectException(NoImageDriverException::class);
             }
 
             $image = $faker->unique()->image($width, $height);

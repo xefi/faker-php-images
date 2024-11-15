@@ -5,7 +5,7 @@ namespace Xefi\Faker\Images\Providers;
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use Intervention\Image\Drivers\Imagick\Driver as ImagickDriver;
 use Intervention\Image\ImageManager;
-use Xefi\Faker\Images\Exceptions\NoDriverException;
+use Xefi\Faker\Images\Exceptions\NoImageDriverException;
 
 class ImageManagerProvider
 {
@@ -35,6 +35,6 @@ class ImageManagerProvider
             return new ImagickDriver();
         }
 
-        throw new NoDriverException("Please activate GD or Imagick in your PHP extensions.");
+        throw new NoImageDriverException('Please activate GD or Imagick in your PHP extensions.');
     }
 }

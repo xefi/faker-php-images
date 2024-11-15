@@ -4,7 +4,7 @@ namespace Xefi\Faker\Images\Exceptions;
 
 use Throwable;
 
-class NoDriverException extends \RuntimeException
+class NoImageDriverException extends \RuntimeException
 {
     public function __construct(string $message = '', int $code = 0, ?Throwable $previous = null)
     {
