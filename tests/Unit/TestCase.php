@@ -13,4 +13,11 @@ class TestCase extends \PHPUnit\Framework\TestCase
 
         (new FakerImagesServiceProvider())->boot();
     }
+
+    protected function needImageDriver(): void
+    {
+        if (!extension_loaded('gd') && !extension_loaded('imagick')) {
+            $this->markTestSkipped('GD or Imagick extension is required.');
+        }
+    }
 }
