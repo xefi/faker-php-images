@@ -32,14 +32,16 @@ class ImagesExtension extends Extension
         );
     }
 
-    public function image(int $width = 300, int $height = 200, string $backgroundColor = '#cccccc', string $textColor = '#333333'): Image
+    public function image(int $width = 300, int $height = 200, string $backgroundColor = '#cccccc', string $textColor = '#333333', string $text = null): Image
     {
+        $text ??= $width.' x '.$height;
+
         $imageManager = $this->imageManagerProvider->getImageManager();
 
         $image = $imageManager->create($width,$height);
         $image->fill($backgroundColor);
 
-        $image->text($width.' x '.$height, round($width / 2), round($height / 2), function($font) use ($textColor, $width, $height) {
+        $image->text($text, round($width / 2), round($height / 2), function($font) use ($textColor, $width, $height) {
             $font->file(__DIR__.'/../../assets/fonts/Roboto-Regular.ttf');
             $font->size($this->calculateTextSize($width, $height));
             $font->color($textColor);
