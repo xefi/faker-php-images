@@ -3,31 +3,40 @@
 namespace Xefi\Faker\Images\Tests\Unit\Extensions;
 
 use Intervention\Image\Image;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Random\Randomizer;
 use Xefi\Faker\Container\Container;
-use Xefi\Faker\Images\Exceptions\NoImageDriverException;
 use Xefi\Faker\Images\Tests\Unit\TestCase;
 
 final class ImagesExtensionTest extends TestCase
 {
-    public function testImage(): void
+    #[RequiresPhpExtension('gd')]
+    public function testImageUsingGd(): void
     {
         $faker = new Container(false);
 
-        if (!extension_loaded('gd') && !extension_loaded('imagick')) {
-            $this->expectException(NoImageDriverException::class);
-        }
+        $image = $faker->unique()->image();
+
+        $this->assertInstanceOf(Image::class, $image);
+        $this->assertEquals(300, $image->width());
+        $this->assertEquals(200, $image->height());
+    }
+
+    #[RequiresPhpExtension('imagick')]
+
+    public function testImageUsingImagick(): void
+    {
+        $faker = new Container(false);
 
         $image = $faker->unique()->image();
 
-        if (extension_loaded('gd') || extension_loaded('imagick')) {
-            $this->assertInstanceOf(Image::class, $image);
-            $this->assertEquals(300, $image->width());
-            $this->assertEquals(200, $image->height());
-        }
+        $this->assertInstanceOf(Image::class, $image);
+        $this->assertEquals(300, $image->width());
+        $this->assertEquals(200, $image->height());
     }
 
-    public function testImageWithCustomParameters(): void
+    #[RequiresPhpExtension('gd')]
+    public function testImageWithCustomParametersUsingGd(): void
     {
         $faker = new Container(false);
         $randomizer = new Randomizer();
@@ -36,17 +45,29 @@ final class ImagesExtensionTest extends TestCase
             $width = $randomizer->getInt(1, 2000);
             $height = $randomizer->getInt(1, 2000);
 
-            if (!extension_loaded('gd') && !extension_loaded('imagick')) {
-                $this->expectException(NoImageDriverException::class);
-            }
+            $image = $faker->unique()->image($width, $height);
+
+            $this->assertInstanceOf(Image::class, $image);
+            $this->assertEquals($width, $image->width());
+            $this->assertEquals($height, $image->height());
+        }
+    }
+
+    #[RequiresPhpExtension('imagick')]
+    public function testImageWithCustomParametersUsingImagick(): void
+    {
+        $faker = new Container(false);
+        $randomizer = new Randomizer();
+
+        for ($i = 0; $i < 10; $i++) {
+            $width = $randomizer->getInt(1, 2000);
+            $height = $randomizer->getInt(1, 2000);
 
             $image = $faker->unique()->image($width, $height);
 
-            if (extension_loaded('gd') || extension_loaded('imagick')) {
-                $this->assertInstanceOf(Image::class, $image);
-                $this->assertEquals($width, $image->width());
-                $this->assertEquals($height, $image->height());
-            }
+            $this->assertInstanceOf(Image::class, $image);
+            $this->assertEquals($width, $image->width());
+            $this->assertEquals($height, $image->height());
         }
     }
 
