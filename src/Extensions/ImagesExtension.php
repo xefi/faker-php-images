@@ -27,18 +27,9 @@ class ImagesExtension extends Extension
      */
     private function calculateTextSize(int $width, int $height): int
     {
-        // If the width is 10 times higher than the height, we use width to calculate the text size
-        // Else we use the height
-        if ($width / 10 < $height) {
-            if ($width > 100)
-                $size = $width / 10;
-            else
-                $size = $width / 5;
-        } else {
-            $size = $height / 5;
-        }
-
-        return round($size);
+        return round(
+            min($width / 8, $height / 1.5)
+        );
     }
 
     public function image(int $width = 300, int $height = 200, string $backgroundColor = '#cccccc', string $textColor = '#333333'): Image
