@@ -20,4 +20,11 @@ class TestCase extends \PHPUnit\Framework\TestCase
             $this->markTestSkipped('GD or Imagick extension is required.');
         }
     }
+
+    protected function needNoImageDriver(): void
+    {
+        if (extension_loaded('gd') || extension_loaded('imagick')) {
+            $this->markTestSkipped('This test is only without GD and Imagick extensions.');
+        }
+    }
 }
