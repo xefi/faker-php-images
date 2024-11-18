@@ -54,6 +54,6 @@ class ImagesExtension extends Extension
 
     public function imageUrl(int $width = 300, int $height = 200): string
     {
-        return "https://placehold.co/".$width."x".$height;
+        return 'https://placehold.co/'.$width.'x'.$height;
     }
 }

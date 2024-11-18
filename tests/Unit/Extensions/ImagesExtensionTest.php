@@ -47,7 +47,7 @@ final class ImagesExtensionTest extends TestCase
 
         $url = $faker->unique()->imageUrl();
 
-        $this->assertEquals("https://placehold.co/300x200", $url);
+        $this->assertEquals('https://placehold.co/300x200', $url);
     }
 
     public function testImageUrlWithCustomValues(): void
@@ -61,7 +61,7 @@ final class ImagesExtensionTest extends TestCase
 
             $url = $faker->unique()->imageUrl($width, $height);
 
-            $this->assertEquals("https://placehold.co/" . $width . "x" . $height, $url);
+            $this->assertEquals('https://placehold.co/' . $width . 'x' . $height, $url);
         }
     }
 }
