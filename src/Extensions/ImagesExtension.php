@@ -32,7 +32,7 @@ class ImagesExtension extends Extension
         );
     }
 
-    public function image(int $width = 300, int $height = 200, string $backgroundColor = '#cccccc', string $textColor = '#333333', string $text = null): Image
+    public function image(int $width = 300, int $height = 200, string $backgroundColor = '#cccccc', string $textColor = '#333333', ?string $text = null): Image
     {
         $text ??= $width.' x '.$height;
 
