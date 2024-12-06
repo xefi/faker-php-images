@@ -20,7 +20,7 @@
     "php": "^8.3",
     "intervention/image": "^3.9",
     "psr/container": "^2.0",
-    "xefi/faker-php": "^0"
+    "xefi/faker-php": "^1"
   },
   "require-dev": {
     "phpunit/phpunit": "^11"
