@@ -2,6 +2,7 @@
 
 namespace Xefi\Faker\Images\Extensions;
 
+use Intervention\Image\Alignment;
 use Intervention\Image\Image;
 use Random\Randomizer;
 use Xefi\Faker\Extensions\Extension;
@@ -38,15 +39,14 @@ class ImagesExtension extends Extension
 
         $imageManager = $this->imageManagerProvider->getImageManager();
 
-        $image = $imageManager->create($width,$height);
+        $image = $imageManager->createImage($width, $height);
         $image->fill($backgroundColor);
 
-        $image->text($text, round($width / 2), round($height / 2), function($font) use ($textColor, $width, $height) {
+        $image->text($text, (int) round($width / 2), (int) round($height / 2), function($font) use ($textColor, $width, $height) {
             $font->file(__DIR__.'/../../assets/fonts/Roboto-Regular.ttf');
             $font->size($this->calculateTextSize($width, $height));
             $font->color($textColor);
-            $font->align('center');
-            $font->valign('middle');
+            $font->align(Alignment::CENTER, Alignment::CENTER);
         });
 
         return $image;
