@@ -28,14 +28,14 @@ final class ImageManagerProviderTest extends TestCase
         $this->expectException(NoImageDriverException::class);
 
         $method = self::getMethod('selectDriver');
-        $method->invokeArgs(new ImageManagerProvider(), []);
+        $method->invokeArgs(null, []);
     }
 
     #[RequiresPhpExtension('gd')]
     public function testSelectDriverWithGd(): void
     {
         $method = self::getMethod('selectDriver');
-        $driver = $method->invokeArgs(new ImageManagerProvider(), []);
+        $driver = $method->invokeArgs(null, []);
 
         $this->assertInstanceOf(GdDriver::class, $driver);
     }
@@ -44,7 +44,7 @@ final class ImageManagerProviderTest extends TestCase
     public function testSelectDriverWithImagick(): void
     {
         $method = self::getMethod('selectDriver');
-        $driver = $method->invokeArgs(new ImageManagerProvider(), []);
+        $driver = $method->invokeArgs(null, []);
 
         $this->assertInstanceOf(ImagickDriver::class, $driver);
     }
