@@ -18,7 +18,7 @@
   ],
   "require": {
     "php": ">=8.3 <8.6",
-    "intervention/image": "^3.9",
+    "intervention/image": "^4",
     "psr/container": "^2.0",
     "xefi/faker-php": "^1"
   },
